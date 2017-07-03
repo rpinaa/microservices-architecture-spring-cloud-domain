@@ -1,0 +1,37 @@
+spring.profiles.active: dv
+
+server:
+  port: 0
+
+---
+
+spring:
+  profiles: dv
+
+info:
+  app:
+    name: quick-riders-chefs-microservice
+    description: quick riders chefs micro service
+    version: 0.0.1
+
+logging:
+  level:
+    ROOT: INFO
+
+---
+
+spring:
+  profiles: st
+
+logging:
+  level:
+    ROOT: WARN
+
+---
+
+spring:
+  profiles: pd
+
+logging:
+  level:
+    ROOT: ERROR

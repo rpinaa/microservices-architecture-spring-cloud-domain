@@ -1,0 +1,41 @@
+spring.profiles.active: dv
+
+management:
+  context-path: /
+
+---
+
+spring:
+  profiles: dv
+
+info:
+  app:
+    name: quick-riders-oauth-server
+    description: quick riders oauth server for micro services
+    version: 0.0.1
+
+server:
+  port: 9999
+
+logging:
+  level:
+    org:
+      springframework: INFO
+
+---
+
+spring:
+  profiles: st
+
+logging:
+  level:
+    ROOT: WARN
+
+---
+
+spring:
+  profiles: pd
+
+logging:
+  level:
+    ROOT: WARN

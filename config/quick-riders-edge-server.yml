@@ -1,0 +1,54 @@
+spring.profiles.active: dv
+
+---
+
+spring:
+  profiles: dv
+
+info:
+  app:
+    name: quick-riders-edge-server
+    description: quick riders edge server for micro services
+    version: 0.0.1
+
+server:
+  port: 8765
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  ignoredServices: "*"
+  prefix: /api
+  routes:
+    riders:
+      path: /riders/**
+      url: http://localhost:1337/riders
+
+logging:
+  level:
+    org:
+      springframework: INFO
+
+---
+
+spring:
+  profiles: st
+
+logging:
+  level:
+    ROOT: WARN
+
+---
+
+spring:
+  profiles: pd
+
+logging:
+  level:
+    ROOT: WARN
