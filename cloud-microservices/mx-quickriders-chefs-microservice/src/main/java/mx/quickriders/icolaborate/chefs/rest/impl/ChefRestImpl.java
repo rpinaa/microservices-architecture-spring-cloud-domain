@@ -1,5 +1,6 @@
 package mx.quickriders.icolaborate.chefs.rest.impl;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import mx.quickriders.icolaborate.chefs.event.RequestChefsEvent;
 import mx.quickriders.icolaborate.chefs.event.ResponseChefsEvent;
 import mx.quickriders.icolaborate.chefs.rest.ChefRest;
@@ -19,6 +20,7 @@ public class ChefRestImpl implements ChefRest {
     @Autowired
     private ChefService chefService;
 
+    @HystrixCommand(groupKey = "helloGroup", fallbackMethod = "fallBackCall")
     public Callable<ResponseChefsEvent> getChefs(final int numberPage, final int recordsPerPage) throws ExecutionException {
 
         final RequestChefsEvent requestChefsEvent = RequestChefsEvent.builder()
@@ -27,5 +29,9 @@ public class ChefRestImpl implements ChefRest {
                 .build();
 
         return () -> chefService.requestChefs(requestChefsEvent).get();
+    }
+
+    public Callable<ResponseChefsEvent> fallBackCall(final int numberPage, final int recordsPerPage) {
+        return () -> null;
     }
 }
